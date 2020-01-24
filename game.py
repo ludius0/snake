@@ -5,11 +5,12 @@ display = 600
 rows = 20
 d = display
 apple_pos_list = [0, 0, 0, 0, False]
+snake_pos_list = []
 
 
 class snake():
 
-    def draw_snake(display, body):
+    def draw_snake(body):
         position = display // rows
         a, b = 0, 0
         a += position
@@ -28,16 +29,12 @@ class snake():
 
             if keys[pygame.K_LEFT]:
                 snake_direction = "LEFT"
-                print("Left")
             elif keys[pygame.K_RIGHT]:
                 snake_direction = "RIGHT"
-                print("Right")
             elif keys[pygame.K_UP]:
                 snake_direction = "UP"
-                print("Up")
             elif keys[pygame.K_DOWN]:
                 snake_direction = "DOWN"
-                print("Down")
 
 
         position = display // rows
@@ -61,7 +58,7 @@ class snake():
             body[1] = body[1] + y
 
 
-        snake.draw_snake(display, body)
+        snake.draw_snake(body)
                          
         redraw_screen(background)
 
@@ -74,10 +71,15 @@ class snake():
 
 
 def redraw_screen(background):
+#    position = display // rows
+#    x = random.randrange(0, display, position)
+#    y = random.randrange(0, display, position)
+#    body = [x, y]
     background.fill((60, 150, 100))
     
     grid(display, rows, background)
     apple(display, background)
+    snake.draw_snake(body)
     
     screen.blit(background, (0, 0))
 #    screen.blit(snake, apple)
@@ -133,9 +135,7 @@ def main():
     position = display // rows
     x = random.randrange(0, display, position)
     y = random.randrange(0, display, position)
-    body = [0, 0]
-    body[0] = x
-    body[1] = y
+    body = [x, y]
     
     
     while True:
