@@ -1,5 +1,5 @@
-import pygame, math, random
 from pygame.locals import *
+import pygame, math, random
 
 display = 600
 rows = 30
@@ -11,36 +11,63 @@ body = []
 snake_direction = None
 score = 0
 body_lenght = 1
+pos_head = []
+turns = {}
+
+class cube():
+    rows = 20
+    w = 500
+    def __init__(self,start,dirnx=1,dirny=0,color=(255,0,0)):
+        self.pos = start
+        self.dirnx = 1
+        self.dirny = 0
+        self.color = color
+
+        
+    def move(self, dirnx, dirny):
+        self.dirnx = dirnx
+        self.dirny = dirny
+        self.pos = (self.pos[0] + self.dirnx, self.pos[1] + self.dirny)
+
+    def draw(self, surface, eyes=False):
+        dis = self.w // self.rows
+        i = self.pos[0]
+        j = self.pos[1]
 
 class snake():
 
     def draw_head():
-        global head
+        global head, pos_head
         position = display // rows
         a, b = 0, 0
         a += position
         b += position
         # Draw a head
         pygame.draw.rect(background, (0, 100, 255), (head[0], head[1], a, b))
+        pos_head = [head[0], head[1]]
 
-    def draw_body():
-        global body, head
-
+    def draw_body(): ###### Cant figured out how to draw body in turns(maybe something with dictionaries or list with[-x -> slicing]
+        global body, head, pos_head, turns
         position = display // rows
         a, b = 0, 0
         a += position
         b += position
+
         
+        x, y = pos_head
+
         for i in range(body_lenght):
+            body.append(x)
+            body.append(y)
             if snake_direction == "LEFT":
-                body[0] = body[0] + a
+                x += a
             elif snake_direction == "RIGHT":
-                body[0] = body[0] - a
+                x -= a
             elif snake_direction == "UP":
-                body[1] = body[1] + b
+                y += b
             elif snake_direction == "DOWN":
-                body[1] = body[1] - b
-            pygame.draw.rect(background, (0, 100, 255), (body[0], body[1], a, b))
+                y -= b
+            pygame.draw.rect(background, (0, 100, 255), (body[-2], body[-1], a, b))
         
 
     def move(background, head):
@@ -111,6 +138,8 @@ class snake():
             x = apple_pos_list[0]
             y = apple_pos_list[1]
             body_lenght += 1
+            pos_head.append(head[0])
+            pos_head.append(head[1])
             
             
             
@@ -188,7 +217,6 @@ def main():
         clock.tick(10)
         
         
-        
         snake.move(background, head)
         redraw_screen(background)
 
@@ -196,3 +224,4 @@ def main():
 if __name__ == "__main__":
     main()
     print(f"You scored: {score}")
+
