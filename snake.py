@@ -76,7 +76,7 @@ def main():
             score += 1
 
          # Check if snake collided with boundaries
-        if snake[0][0] == 600 or snake[0][1] == 600 or snake[0][0] < 0 or snake[0][1] < 0:
+        if snake[0][0] == display or snake[0][1] == display or snake[0][0] < 0 or snake[0][1] < 0:
             game = False
             break
         
