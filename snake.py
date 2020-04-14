@@ -93,8 +93,8 @@ def end_game(screen):
     textpos.centerx = screen.get_rect().centerx
     
     x, y = h/1.5, h/2
-    textpos2.center = (x, y-30)
-    textpos3.center = (x+90, y+20)
+    textpos2.center = (int(x), int(y-30))
+    textpos3.center = (int(x+90), int(y+20))
     
     screen.blit(text, textpos), screen.blit(text2, textpos2), screen.blit(text3, textpos3)
             
