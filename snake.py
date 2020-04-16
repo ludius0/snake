@@ -84,17 +84,17 @@ def end_game(screen):
     font = pygame.font.Font(None, 124)
     font2 = pygame.font.Font(None, 48)
     font3 = pygame.font.Font(None, 24)
-    if end_status == "LOSE": text = font.render("GAME OVER", 1, WHITE)
-    elif end_status == "WIN": text = font.render("YOU WIN!", 2, WHITE)
-    text2 = font2.render(f"You ate {score-1} an apples.", 1, WHITE)
-    text3 = font3.render("Press 'r' to play again", 1, WHITE)
+    if end_status == "LOSE": text = font.render("GAME OVER", 1, (255, 255, 255))
+    elif end_status == "WIN": text = font.render("YOU WIN!", 2, (255, 255, 255))
+    text2 = font2.render(f"You ate {score-1} an apples.", 1, (255, 255, 255))
+    text3 = font3.render("Press 'r' to play again", 1, (255, 255, 255))
     
     textpos, textpos2, textpos3 = text.get_rect(), text.get_rect(), text.get_rect()
     textpos.centerx = screen.get_rect().centerx
     
     x, y = h/1.5, h/2
-    textpos2.center = (int(x), int(y-30))
-    textpos3.center = (int(x+90), int(y+20))
+    textpos2.center = (x, y-30)
+    textpos3.center = (x+90, y+20)
     
     screen.blit(text, textpos), screen.blit(text2, textpos2), screen.blit(text3, textpos3)
             
@@ -151,8 +151,8 @@ def main():
         clock.tick(20)
 
         # Snake
-        s.move()
         collision_with_apple(s)
+        s.move()
         
         # Draw on screen
         screen.fill(back_c)
@@ -177,3 +177,4 @@ if __name__ == '__main__':
             for key in keys:
                 if keys[pygame.K_r]:
                     main()
+                    break
