@@ -84,10 +84,10 @@ def end_game(screen):
     font = pygame.font.Font(None, 124)
     font2 = pygame.font.Font(None, 48)
     font3 = pygame.font.Font(None, 24)
-    if end_status == "LOSE": text = font.render("GAME OVER", 1, (255, 255, 255))
-    elif end_status == "WIN": text = font.render("YOU WIN!", 2, (255, 255, 255))
-    text2 = font2.render(f"You ate {score-1} an apples.", 1, (255, 255, 255))
-    text3 = font3.render("Press 'r' to play again", 1, (255, 255, 255))
+    if end_status == "LOSE": text = font.render("GAME OVER", 1, WHITE)
+    elif end_status == "WIN": text = font.render("YOU WIN!", 2, WHITE)
+    text2 = font2.render(f"You ate {score-1} an apples.", 1, WHITE)
+    text3 = font3.render("Press 'r' to play again", 1, WHITE)
     
     textpos, textpos2, textpos3 = text.get_rect(), text.get_rect(), text.get_rect()
     textpos.centerx = screen.get_rect().centerx
@@ -104,20 +104,19 @@ def generate_apple(s):
     status = True
     while status:
         x, y = random.randrange(0, h, c), random.randrange(0, h, c)
-
+        status = False
         for i in s.body:                    # won't generate on top of snake
-            if x != i[0] and y != i[1]:
-                apple_pos = (x, y)
-                status = False
-            else:
+            if x == i[0] and y == i[1]:
                 status = True
+        if status == False:
+            apple_pos = (x, y)
             
 def collision_with_apple(s):
     global apple_pos
     for i in s.body:
         if i == apple_pos:
             s.body.append((i[0], i[1]))
-            apple_pos = ()
+            apple_pos = None
             generate_apple(s)
 
 def draw_grid(screen):
